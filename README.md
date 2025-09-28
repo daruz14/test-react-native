@@ -49,46 +49,86 @@ La aplicación utiliza datos simulados para demostrar funcionalidades:
 - **Datos Históricos**: Generación automática de historial de precios
 - **Rangos Temporales**: Datos para 1 día, 1 semana, 1 mes y 2 meses
 
-## Requisitos previos
+## Instalación y Ejecución
 
-Es necesario tener instalado lo siguiente:
-- Node.js
-- npm
-- Expo CLI
+### Requisitos Previos
+- Node.js (v16 o superior)
+- npm o yarn
+- Expo CLI (`npm install -g @expo/cli`)
+- iOS Simulator (Xcode) o dispositivo iOS
 
-## Instalación y configuración
+### Pasos de Instalación
 
-- Backend:
-  1. Vamos a la carpeta del backend
-  ```bash
-  cd backend
-  ```
+1. **Backend WebSocket**
+   ```bash
+   cd backend
+   npm install
+   node ws-mock.js
+   ```
+   El servidor estará disponible en `ws://localhost:8081`
 
-  2. Instalamos las dependencias
-  ```bash
-  npm install
-  ```
+2. **Aplicación React Native**
+   ```bash
+   cd mini-zetsy
+   npm install
+   ```
 
-  3. Iniciamos el servidor WebSocket:
-  ```bash
-    node ws-mock.js
-  ```
+3. **Ejecutar la aplicación**
+   ```bash
+   npx expo start
+   # Presiona 'i' para iOS simulator
+   # Presiona 'a' para Android emulator
+   ```
+  La aplicación está optimizada para iOS
 
-- Expo app - Mini Zetsy
-  1. Vamos a la carpeta del backend
-  ```bash
-  cd mini-zetsy
-  ```
+## Decisiones Técnicas y Trade-offs
 
-  2. Instalamos las dependencias
-  ```bash
-  npm install
-  ```
+### Arquitectura Elegida
+- **Context + Hooks**: Elegido sobre Redux para simplicidad en un proyecto de demostración
+  - ✅ Menos boilerplate, setup más rápido
+  - ❌ Menos herramientas de debugging comparado con Redux DevTools
 
-  La aplicación a sido desarollada principalmente usando IOS, por lo mismo para reproducir esto, es necesario levantar el simulador de IOS antes de iniciar la aplicación
+- **WebSocket Mock**: Simulación local vs API real
+  - ✅ Desarrollo independiente, datos controlados
+  - ❌ No refleja latencias reales o problemas de red
 
-  3. Iniciamos la app Expo:
-  ```bash
-    npx expo start
-    i #Este comando iniciara la aplicación en IOS
-  ```
+### Estructura de Componentes
+- **Modularización agresiva**: Separación en hooks y componentes pequeños
+  - ✅ Reutilización, testabilidad, mantenibilidad
+  - ❌ Mayor número de archivos, potencial over-engineering
+
+- **TypeScript**: Tipado estricto
+  - ✅ Detección temprana de errores, mejor DX
+  - ❌ Tiempo adicional de desarrollo inicial
+
+## Límites Conocidos
+
+### Funcionalidades
+- **Datos Mock**: Solo 5 posiciones simuladas
+- **Temporalidades**: Limitado a 4 rangos de tiempo predefinidos
+- **Autenticación**: No implementada (fuera del scope)
+- **Persistencia**: Los datos se pierden al reiniciar la aplicación
+
+### Técnicas
+- **Performance**: Sin virtualización para listas grandes (React.memo implementado)
+- **Offline**: No hay soporte para modo offline
+- **Testing**: Tests unitarios no implementados (tiempo limitado)
+- **Accesibilidad**: Implementación básica, podría mejorarse
+
+### Compatibilidad
+- **Plataformas**: Optimizado principalmente para iOS
+- **Dispositivos**: Diseño responsive básico, mejor en tablets/teléfonos grandes
+
+## Tiempo Invertido
+
+-  Desarrollo Total: ~3-4 horas
+
+### Balance IA vs Humano
+  #### Contribución de GitHub Copilot
+  - Autocompletado de código
+  - Mejoras de typo
+  - Mejoras en estructura final del ReadMe
+  - Asistencia en búsqueda de bugs
+
+- **IA (~20%)**
+- **Humano (~80%)**
