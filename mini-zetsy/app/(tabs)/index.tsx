@@ -7,6 +7,7 @@ import { ConnectionStatus } from '@/components/portfolio/ConnectionStatus';
 import { PortfolioSummaryCard } from '@/components/portfolio/PortfolioSummaryCard';
 import { usePortfolio } from '@/contexts/PortfolioContext';
 import { PositionsList } from '@/components/portfolio/PositionsList';
+import { PortfolioChart } from '@/components/portfolio/PortfolioChart';
 
 export default function HomeScreen() {
   const { state, connect } = usePortfolio();
@@ -50,6 +51,11 @@ export default function HomeScreen() {
           intradayChange={state.summary.intradayChange}
           intradayChangePercent={state.summary.intradayChangePercent}
           isLoading={state.isLoading}
+        />
+
+        <PortfolioChart
+          tickersData={state.tickersData}
+          positions={state.positions}
         />
 
         <PositionsList
