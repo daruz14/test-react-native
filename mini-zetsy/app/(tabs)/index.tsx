@@ -1,12 +1,16 @@
 import React from 'react';
 import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
+import { ConnectionStatus } from '@/components/portfolio/ConnectionStatus';
 import { PortfolioSummaryCard } from '@/components/portfolio/PortfolioSummaryCard';
 import { usePortfolio } from '@/contexts/PortfolioContext';
+import { PositionsList } from '@/components/portfolio/PositionsList';
 
 export default function HomeScreen() {
   const { state, connect } = usePortfolio();
+  const insets = useSafeAreaInsets();
 
   const onRefresh = React.useCallback(() => {
     connect();
@@ -31,7 +35,8 @@ export default function HomeScreen() {
   }
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedView style={[styles.container, { paddingTop: insets.top }]}>
+      <ConnectionStatus isConnected={state.isConnected} isLoading={state.isLoading} />
       <ScrollView
         style={styles.scrollView}
         refreshControl={
@@ -44,6 +49,11 @@ export default function HomeScreen() {
           totalPLPercent={state.summary.totalPLPercent}
           intradayChange={state.summary.intradayChange}
           intradayChangePercent={state.summary.intradayChangePercent}
+          isLoading={state.isLoading}
+        />
+
+        <PositionsList
+          positions={state.positions}
           isLoading={state.isLoading}
         />
       </ScrollView>

@@ -5,12 +5,12 @@ Una aplicación React Native desarrollada con Expo que muestra un portafolio de 
 
 ## Características
 
-- [ ] **Dashboard de Portafolios**: Valor total, P&L y cambio intradía
-- [ ] **Lista de posiciones**: Tickers, cantidades, precio promedio y actuales, P&L y peso en portafolio
+- [X] **Dashboard de Portafolios**: Valor total, P&L y cambio intradía
+- [X] **Lista de posiciones**: Tickers, cantidades, precio promedio y actuales, P&L y peso en portafolio
 - [ ] **Gráfico de Rendimiento**: Visualización de valor del portafolio con diferentes temporalidades (Hoy, 1W, 1M y 2M)
 - [ ] **Filtros y búsqueda**: Filtrar por ticker y rango de P&L
 - [ ] **Ordenar por**: P&L, %, peso en portafolio o peso.
-- [ ] **Datos en tiempo Real**: Conexión WebSocket para precios actualizados
+- [X] **Datos en tiempo Real**: Conexión WebSocket para precios actualizados
 
 ## Requisitos previos
 

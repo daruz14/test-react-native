@@ -2,8 +2,9 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { formatCurrency, formatPercent } from '@/utils/formatters';
+import { getPLColor } from '@/utils/colors';
 
 interface PortfolioSummaryCardProps {
   totalValue: number;
@@ -23,24 +24,6 @@ export const PortfolioSummaryCard = React.memo(function PortfolioSummaryCard({
   isLoading,
 }: PortfolioSummaryCardProps) {
   const theme = useColorScheme() ?? 'light';
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-    }).format(value);
-  };
-
-  const formatPercent = (value: number) => {
-    return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
-  };
-
-  const getPLColor = (value: number) => {
-    if (value > 0) return '#10B981';
-    if (value < 0) return '#EF4444';
-    return theme === 'light' ? Colors.light.text : Colors.dark.text;
-  };
 
   if (isLoading) {
     return (
@@ -67,20 +50,20 @@ export const PortfolioSummaryCard = React.memo(function PortfolioSummaryCard({
       <View style={styles.metricsRow}>
         <View style={styles.metric}>
           <ThemedText style={styles.metricLabel}>Total P&L</ThemedText>
-          <ThemedText style={[styles.metricValue, { color: getPLColor(totalPL) }]}>
+          <ThemedText style={[styles.metricValue, { color: getPLColor(totalPL, theme) }]}>
             {formatCurrency(totalPL)}
           </ThemedText>
-          <ThemedText style={[styles.metricPercent, { color: getPLColor(totalPL) }]}>
+          <ThemedText style={[styles.metricPercent, { color: getPLColor(totalPL, theme) }]}>
             {formatPercent(totalPLPercent)}
           </ThemedText>
         </View>
 
         <View style={styles.metric}>
           <ThemedText style={styles.metricLabel}>Today</ThemedText>
-          <ThemedText style={[styles.metricValue, { color: getPLColor(intradayChange) }]}>
+          <ThemedText style={[styles.metricValue, { color: getPLColor(intradayChange, theme) }]}>
             {formatCurrency(intradayChange)}
           </ThemedText>
-          <ThemedText style={[styles.metricPercent, { color: getPLColor(intradayChange) }]}>
+          <ThemedText style={[styles.metricPercent, { color: getPLColor(intradayChange, theme) }]}>
             {formatPercent(intradayChangePercent)}
           </ThemedText>
         </View>
