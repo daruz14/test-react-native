@@ -1,0 +1,16 @@
+# Ignore node_modules and build artifacts for backend
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/.env
+backend/.DS_Store
+
+# Ignore Expo/React Native files for mini-zetsy
+mini-zetsy/node_modules/
+mini-zetsy/.expo/
+mini-zetsy/.expo-shared/
+mini-zetsy/.env
+mini-zetsy/.DS_Store
+mini-zetsy/web-build/
+mini-zetsy/android/
+mini-zetsy/ios/
