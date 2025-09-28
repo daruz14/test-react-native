@@ -24,7 +24,7 @@ export class WebSocketService {
     },
   };
 
-  constructor(url: string = 'ws://localhost:8080') {
+  constructor(url: string = 'ws://localhost:8081') {
     this.url = url;
   }
 
