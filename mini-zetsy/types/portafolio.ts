@@ -82,3 +82,11 @@ export interface TickerData {
   intradayTicks: IntradayTick[];
   lastUpdate: number;
 }
+
+export interface FilterState {
+  searchTicker: string;
+  plRangeMin: number | null;
+  plRangeMax: number | null;
+  sortBy: 'plPercent' | 'portfolioWeight' | 'currentPrice';
+  sortOrder: 'asc' | 'desc';
+}
