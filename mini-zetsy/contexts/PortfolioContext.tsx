@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { WebSocketService } from '@/services/websocket';
 import { HistoryData, PortfolioState, PortfolioSummary, Position, TickerData } from '@/types/portafolio';
 import { mockPositions, calculatePosition } from '@/data/mockPortfolio';
@@ -161,7 +161,9 @@ const handleUpdateTickerPrice = (
   };
 };
 
-const portfolioActions = {
+type actionHandlers = (state: PortfolioState, payload: any) => PortfolioState;
+
+const portfolioActions: Record<string, actionHandlers> = {
   SET_LOADING: handleSetLoading,
   SET_CONNECTED: handleSetConnected,
   SET_ERROR: handleSetError,
@@ -187,7 +189,7 @@ interface PortfolioProviderProps {
 
 export function PortfolioProvider({ children }: PortfolioProviderProps) {
   const [state, dispatch] = useReducer(portfolioReducer, initialState);
-  const wsService = React.useRef<WebSocketService | null>(null);
+  const wsService = useRef<WebSocketService | null>(null);
 
   const connect = useCallback(() => {
     if (!wsService.current) {
